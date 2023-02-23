@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animal Puzzle</title>
+     <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* TODO: tag selector를 사용하면 해당하는 모든 tag에 적용됨으로 nav 또는 footer가 추가될때 문제가 될 수 있음 */
+
+    </style>
+</head>
+
+<body>
+
+<!-- section 1 nav bar -->
+<div class="nav">
+    <div class="logo">
+        <img src="images/zoo.png" style="width: 100px; height: 100px;">
+    </div>
+    <div class="nav_btn">
+        <a href="a.index.html">HOME</a>
+        <a href="b.gallery.html">GALLERY</a>
+        <a href="c.matching.html">MATCHING</a>
+        <a href="d.game.html">GAME</a>
+        <a href="e.fortune.html">FORTUNE</a>
+        <a href="f.board.html">BOARD</a>
+    </div>
+</div>
+
+<div class="game-wrapper">
+    <div>
+        <button id="home"><a id="g_home" href="a.index.html">HOME</a></button>
+        <button id="btn-start-game">START</button>
+        <button id="btn-reset-game">RESET</button>
+    </div>
+    <table id="g_table">
+        <tr>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+        </tr>
+        <tr>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+        </tr>
+        <tr>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+        </tr>
+        <tr>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+            <td class="g_td"><img src="img/play-button.png" class="game-img"></td>
+        </tr>
+    </table>
+    </div>
+    <div id="alert">Congratulations!!</div>
+</div>
+
+    <footer>
+        <div class="footer_img">
+          <img src="images/zoo.png">
+        </div>
+        <div class="footer_text">
+          <span>강수림 &nbsp;</span><span>|</span>
+          <span>김찬연&nbsp;</span><span>|</span>
+          <span>이하영&nbsp;</span><span>|</span>
+          <span>한지해&nbsp;</span><span>|</span>
+          <span>한도희&nbsp;</span><span>|</span>
+          <p>1조 과제입니다</p>
+          <p>2022.09.11마감</p>
+          <img src="images/facebook.png">
+          <img src="images/github.png">
+          <img src="images/instagram.png">
+          <img src="images/youtube.png">
+        </div>
+      </footer>
+
+
+
+
+
+<script src="js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+    /*
+    FIXED: tag selector를 사용하면 해당하는 모든 tag에 적용됨으로 nav 또는 footer가 추가될때 문제가 될 수 있음
+    1. game에 사용되는 img에 class gmae-img를 추가 (해당 img tag를 전채 선택하기 위한 class)
+    2. js query selector를 tag에서 class로 변경 $('img') => $('.game-img')
+    */
+
+    window.addEventListener("load", function (event) {
+
+        var imgFiles = ["bear.png", "cat.png", "hamster.png", "panda.png", "pig.png", "puppy.png", "rabbit.png", "seal.png", "turtle.png", "wolf.png"];
+
+        var idxList = null;
+        var isRunning = false; // 작업이 진행중인지 여부를 저장하는 변수
+        var firstImg = null, secondImg = null; // 전면이 표시된 이미지를 저장하는 변수
+        var machingCnt = 0;
+
+        function resetIdx() {
+            idxList = [];
+            while (idxList.length < 20) { // 배열에 요소가 20개 채워질때까지 반복
+                var idx = Math.floor(Math.random() * 20); // 0 ~ 19(포함), 새로 뽑은 숫자
+                var duplicate = false;  // 중복 여부를 저장하는 변수
+
+                $.each(idxList, function (i, val) {
+                    if (val == idx) {
+                        duplicate = true;
+                    }
+                });
+
+                if (!duplicate) // 중복이 아닌 경우에만
+                    idxList.push(idx);  // 배열에 새로 뽑힌 숫자 추가
+            }
+        }
+
+
+        function setImages() {
+
+            $.each(imgFiles, function (i, val) {
+                idx = idxList[i]; // 위에서 뽑아둔 Random한 이미지 위치
+                idx2 = idxList[10 + i]; // 위에서 뽑아둔 Random한 이미지 위치
+
+                $($(".game-img")[idx]).attr(
+                    {
+                        "src": `img/${val}`,
+                        "alt": val
+                    }
+                );
+                $($(".game-img")[idx2]).attr(
+                    {
+                        "src": `img/${val}`,
+                        "alt": val
+                    }
+                );
+            });
+        }
+
+        function initImages() {
+            resetIdx();
+            setImages();
+        }
+
+        var gameStatus = 1;
+
+        // 각 이미지에 이벤트 처리기 등록
+        $(".game-img").on("click", function (event) {
+
+            if (gameStatus == 1) {
+                return;
+            }
+
+            if ($(this).attr("src").includes($(this).attr("alt"))) { // 이미지가 열려 있는지 확인
+                return;
+            }
+
+            if (!isRunning) {
+                if (firstImg == null) { // 아무 이미지도 열리지 않은 경우
+                    firstImg = $(this);
+                } else if (secondImg == null) { // 첫 번째 이미지만 열린 경우
+
+                    secondImg = $(this);
+
+                    if (firstImg.attr("alt") === secondImg.attr("alt")) { // 일치하는 경우
+                        machingCnt++;
+
+                        firstImg.hide(500);
+                        secondImg.hide(500);   // display toggle 보여줬다 안 보여줬다?
+
+                        firstImg = secondImg = null;
+
+                        if (machingCnt == $(".game-img").length / 2) { // 다 찾은 경우
+                            $("#alert").css("display", "flex");
+                            machingCnt = 0;
+                        }
+
+                    } else {
+                        isRunning = true;
+                        setTimeout(function () {
+                            firstImg.attr("src", "img/question.png");
+                            secondImg.attr("src", "img/question.png");
+                            firstImg = secondImg = null;
+                            isRunning = false;
+                        }, 1000);
+                    }
+
+                } else { // 둘 다 열린 경우
+                    return;
+                }
+
+                $(this).attr({ "src": `img/${$(this).attr("alt")}` });
+            }
+        });
+
+        $("#btn-start-game").on("click", function (event) {
+
+            initImages();
+            isRunning = true;
+
+            setTimeout(function () {
+                $(".game-img").each(function (i, img) {
+                    $(img).attr({ "src": "img/question.png" });
+                });
+                isRunning = false;
+            }, 3000);
+            gameStatus = 2;
+        });
+
+        $("#btn-reset-game").on("click", function (event) {
+
+            // firstImg = secondImg = null;
+            // idxList = null;
+            // machingCnt = 0
+            // isRunning = false;
+
+            location.href = "d.game.html";
+        });
+
+    });
+</script>
+</body>
+
+</html>

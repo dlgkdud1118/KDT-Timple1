@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>index</title>
+    <title>board</title>
+    <style>
+    #title{
+        padding-top: 100px;
+    }
+        #b_image{
+            height: 50px;
+            width: 50px;
+            margin-top: 15px;
+        }
+        #wrap div{
+            background-color: #F5C6AA;
+            display: inline-block;
+            width: 800px;
+            word-break:break-all;
+            /* float: right; */
+        }
+
+        #wrap{
+            margin:0 auto;
+        }
+        button{
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+<!-- section 1 nav bar -->
+<div class="nav">
+    <div class="logo">
+        <img src="images/zoo.png" style="width: 100px; height: 100px;">
+    </div>
+    <div class="nav_btn">
+        <a href="a.index.html">HOME</a>
+        <a href="b.gallery.html">GALLERY</a>
+        <a href="c.matching.html">MATCHING</a>
+        <a href="d.game.html">GAME</a>
+        <a href="e.fortune.html">FORTUNE</a>
+        <a href="f.board.html">BOARD</a>
+    </div>
+</div>
+
+<div id="wrap">
+
+
+    <h2 id="title">
+        <span>의견을 &nbsp;&nbsp;자유롭게 &nbsp;&nbsp;적어주세요</span>
+    </h2>
+
+
+    <div id="mid">
+
+        <div>
+            <div id="target1">
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <!-- 입력 요소//// -->
+    <div id="botton">
+
+        <select id="img-selector" name="use-img">
+            <option>익명</option>
+            <option>신남</option>
+            <option>놀람</option>
+            <option>짜증남</option>
+            <option>피곤함</option>
+            <option>기분좋음</option>
+            <option>화남</option>
+        </select>
+
+        <input type="text" id="nick-name" value="" placeholder="닉네임을 입력하세요">
+
+
+        <button id="input">입력</button>
+
+        <br>
+        <textarea id="write" cols="70" rows="5" style="resize:none" value="" placeholder="내용을 입력하세요"></textarea>
+    </div>
+</div>
+<footer>
+    <div class="footer_img">
+        <img src="images/zoo.png">
+    </div>
+
+
+    <div class="footer_text">
+        <span>강수림 &nbsp;</span><span>|</span>
+        <span>김찬연&nbsp;</span><span>|</span>
+        <span>이하영&nbsp;</span><span>|</span>
+        <span>한지해&nbsp;</span><span>|</span>
+        <span>한도희&nbsp;</span><span>|</span>
+        <p>1조 과제입니다</p>
+        <p>2022.09.11마감</p>
+        <img src="images/facebook.png">
+        <img src="images/github.png">
+        <img src="images/instagram.png">
+        <img src="images/youtube.png">
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="js/jquery-3.6.1.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        // FIXED: 작성된 글의 카운트를 정의함.
+        let articleCount = 0;
+
+        //css
+        $("#wrap").css({
+            "width": "950px",
+            "height": "1010px",
+            "margin": "0px auto"
+
+        });
+        $("#top").css({
+            "width": "900px",
+            "height": "200px"
+        });
+        $("#mid").css({
+            "width": "900px"
+        });
+        $("#botton").css({
+            "width": "900px",
+            "height": "300px"
+        });
+        $("h2").css({
+            "text-align": "center"
+            ,"text-color": "red"
+        });
+        $("input").css({
+            "display": "inline-block",
+            "margin": "20px"
+        });
+        $("#write").css({
+            "width": "700px",
+            "height": "150px",
+            "margin": "20px"
+        });
+        $("#input").css({
+            "width": "110px",
+            "height": "150px",
+            "float":"right",
+            "margin": "20px",
+            "margin-top": "85px"
+        });
+        $("#img-selector").css({
+            "margin-left": "50px"
+        });
+        // $("img").css({
+        //     "width": "50px",
+        //     "height": "50px"
+        // });
+
+        //입력 버튼 클릭
+        $("#input").on("click", function () {
+            //입력확인
+            if (!$("#nick-name").val()) {
+                alert('닉네임을 입력하세요');
+                $("#nick-name").focus();
+                return;
+            }
+            if (!$("#write").val()) {
+                alert('내용을 입력하세요');
+                $("#write").focus();
+                return;
+            }
+            if($("#nick-name").val().includes('나쁜말')) {
+                alert('닉네임에 비속어가 포함되어 있습니다. 비속어는 사용할수 없습니다');
+                $("#write").focus();
+                return;
+            }
+            if($("#write").val().includes('나쁜말')) {
+                alert('내용에 비속어가 포함되어 있습니다. 비속어는 사용할수 없습니다');
+                $("#write").focus();
+                return;
+            }
+
+            //출력
+            const profileImgId = `profileImg-${articleCount++}`;
+            var newDiv = $(`<img id="${profileImgId}"><div></div><br>`);
+            var b_image=0;
+            var btnVal=[];
+            //출력 css
+            newDiv.css({
+                "padding": "5px"
+            });
+
+            newDiv.html("닉네임 :" + $("#nick-name").val() + "<br>" + new Date() + "<br>" + "내용" +"<br>"+ $("#write").val()
+                +"<br>"+"<br>"+"<button>싫어요 :</button>"+"<button>좋아요 :</button>");
+            $("#target1").prepend(newDiv);
+
+            //생성된 img 선택 후 출력
+
+            // tag로 query selector를 사용했음으로 첫번째 img tag인 nav에 있는 이미지가 변경됨
+            // html tag ID는 충돌이 되면 안됨으로 dynamic 으로 html tag 입력시 id를 unique 하게 만들어야 함.
+            // FIXED: 1. newDiv 안에 있는 img tag에 ID 추가, $('img') => $('#imgID') 이부분은 위 설명처럼 unique 하게 만들어야 함
+            // 2. filter를 사용해서 idx == 0 임으로 img tag가 맨 처음 filtering 된 img에 이미지가 들어감.
+            // 3. 좋아요 싫어요도 마찬가지로 button에 id를 추가해야 선택된 글을 특정 할 수 있음
+            $(`#${profileImgId}`).attr("src", `images/${$("#img-selector").val()}.png`);
+
+            // $('img').filter(function(idx) {
+            //         return (idx == 0 );
+            //     })
+            //     .attr('src',"images/"+$("#img-selector").val()+".jpg");
+
+            //초기화
+            $('#write').val("");
+            $('#nick-name').val("");
+
+            $("button").each(function (idx, button) {
+                $(this).attr('id', idx);
+            });
+
+            //버튼 좋아요 싫어요 구현(작업중)
+            // $("button").on('click',function(){
+
+            //     $("button").filter(function(idx) {
+            //             return (idx != $("button").length-1 );
+            //         })
+            //         .$("button").val($("button").val()+btnVal[idx]);
+            //         btnVal[idx]++;
+
+            // })
+
+
+
+        });
+
+
+
+
+        $("option").each(function (idx, option) {
+            $(this).attr('id', idx);
+        });
+
+
+    });
+
+
+
+
+
+
+
+
+</script>
+</body>
+
+</html>

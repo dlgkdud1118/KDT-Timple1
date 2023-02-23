@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>나와 잘 맞는 동물은 무엇일까?</title>
+    <style>
+        .a img{
+            background-image: url("images/question.png");
+            background-size: 100%;
+            border: 2px solid white;
+            border-radius: 20px;
+            width: 130px;
+            height: 130px;
+        }
+
+        .img_box img{
+            background-image: url("images/c_bbbb.png") ;
+            border: 2px solid white;
+            border-radius: 20px;
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<div class="nav">
+    <div class="logo">
+        <img id="l_img" src="images/zoo.png" alt="#">
+    </div>
+    <div class="nav_btn">
+        <a href="a.index.html">HOME</a>
+        <a href="b.gallery.html">GALLERY</a>
+        <a href="c.matching.html">MATCHING</a>
+        <a href="d.game.html">GAME</a>
+        <a href="e.fortune.html">FORTUNE</a>
+        <a href="f.board.html">BOARD</a>
+    </div>
+</div>
+    <h1>나와 잘 맞는 동물은 무엇일까?</h1>
+    <table id="bbb">
+        <tr id="c_image-list-row">
+            <td class="a"><img></td>
+            <td class="a"><img></td>
+            <td class="a"><img></td>
+        </tr>
+        
+    </table>
+    <br>
+    <table border="1">
+        <tr id="dlgkdud">
+            <td class="img_box"><img></td>
+        </tr>
+        <td><input id="c_input" type="text"></td>
+
+        
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td colspan="2">
+                <button id="btn-game-start">START</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+<footer>
+    <div class="footer_img">
+        <img src="images/zoo.png" alt="#">
+    </div>
+    <div class="footer_text">
+        <span>강수림 &nbsp;</span><span>|</span>
+        <span>김찬연&nbsp;</span><span>|</span>
+        <span>이하영&nbsp;</span><span>|</span>
+        <span>한지해&nbsp;</span><span>|</span>
+        <span>한도희&nbsp;</span><span>|</span>
+        <p>1조 과제입니다</p>
+        <p>2022.09.11마감</p>
+        <img src="images/facebook.png" alt="#">
+        <img src="images/github.png" alt="#">
+        <img src="images/instagram.png" alt="#">
+        <img src="images/youtube.png" alt="#">
+    </div>
+</footer>
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        window.addEventListener("load", function(event){
+
+            
+        var randomNumber = null;
+        var randomNumber = null;
+        var images = null;
+        var images2 = null;
+        var name = null;
+        
+
+
+
+         
+        var imgFiles = ['1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12','13','14','15'];
+        var textFiles = ['호주폐어는 수영을 잘 못합니다.', '귀여운 토끼입니다.', '북극여우가 멍때리고 있습니다.', '여우가 먹잇감을 발견한 표정으로 당신을 바라봅니다.', '개구리의 간택을 받았습니다.',
+         '도마뱀이 당신을 보고 입맛을 다십니다.', '부엉이가 피곤해하고 있습니다.', '지해의 고양이가 zoom화면에 비치고 있습니다.',
+          '수림언니의 강아지입니다.','수림언니의 강아지입니다.','황금볏과일박쥐가 당신의 집 앞에서 기다립니다.',
+          '핫핑크달팽이입니다. ','포투쏙독새는 배가고픕니다.','검은비개구리가 애처로운 눈빛으로 당신을 바라봅니다.','어깨걸이 극락조가 춤을 추고 있습니다.'];
+
+         function initImages(){ 
+            var images = document.querySelectorAll('#c_image-list-row img');
+            for (var i = 0; i < images.length; i++) {
+                var randomNumber = Math.floor(Math.random()*9)+1;
+                images[i].src = `images/${imgFiles[randomNumber]}.jpg`;
+         };
+        };
+
+        function zzz(){ 
+            var images2 = document.querySelectorAll('#dlgkdud img');
+            for (var j = 0; j < images2.length; j++) {
+                var randomNumber2 = Math.floor(Math.random()*15)+1;
+                images2[j].src = `images/${imgFiles[randomNumber2]}.jpg`;
+                var name = document.querySelector('#c_input');
+                name.value= `${textFiles[randomNumber2]}`;
+                // document.write(`<p>[${textFiles[j]}]</p>`)
+
+
+            };
+        };
+
+            let timerId=null;
+            var btnStartGame = document.querySelector('#btn-game-start');
+            btnStartGame.addEventListener("click", function(event) {
+                timerId = setInterval(function() {
+                    initImages();
+                }, 100);
+                    setTimeout(function(){
+                    clearInterval(timerId);
+                    zzz();
+                },3000);
+            });
+
+
+
+        });
+    </script>
+</body>
+</html>

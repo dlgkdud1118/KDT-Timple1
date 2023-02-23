@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="UTF-8">
+    <title>오늘의 운세</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- section 1 nav bar -->
+    <div class="nav">
+        <div class="logo">
+            <img id="l_img" src="images/zoo.png" alt="#">
+        </div>
+        <div class="nav_btn">
+            <a href="a.index.html">HOME</a>
+            <a href="b.gallery.html">GALLERY</a>
+            <a href="c.matching.html">MATCHING</a>
+            <a href="d.game.html">GAME</a>
+            <a href="e.fortune.html">FORTUNE</a>
+            <a href="f.board.html">BOARD</a>
+        </div>
+    </div>
+
+    <div class="box1">
+        <h3>나의 십이지신을 찾아보세요!</h3>
+        태어난 해&nbsp;&nbsp;<input id="input-birth" type="number" value="2000" min="1">&nbsp;&nbsp;년&nbsp;&nbsp;<button id="btn-calculate">띠 계산하기</button>
+        <br>
+        <h3 id="my-zodiac"></h3>
+    </div>
+    
+    <br>
+
+    <div class="box2">
+        <table id="table-zodiac">
+
+            <caption id="e_caption">십이지신 선택&nbsp;&nbsp;<button id="btn-lucky">오늘의 운세보기</button></caption>
+
+            <tr>
+                <td rowspan="3"><button id="btn-prev">이전</button></td>
+                <td><img></td>
+                <td><img></td>
+                <td><img></td>
+                <td><img></td>
+                <td rowspan="3"><button id="btn-next">다음</button></td>
+            </tr>
+
+            <tr>
+                <td><img></td>
+                <td><img></td>
+                <td><img></td>
+                <td><img></td>
+            </tr>
+
+            <tr>
+                <td><img></td>
+                <td><img></td>
+                <td><img></td>
+                <td><img></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box3">
+    </div>
+    <div id="padding">
+    </div>
+
+    <footer>
+        <div class="footer_img">
+            <img src="images/zoo.png" alt="#">
+        </div>
+        <div class="footer_text">
+            <span>강수림 &nbsp;</span><span>|</span>
+            <span>김찬연&nbsp;</span><span>|</span>
+            <span>이하영&nbsp;</span><span>|</span>
+            <span>한지해&nbsp;</span><span>|</span>
+            <span>한도희&nbsp;</span><span>|</span>
+            <p>1조 과제입니다</p>
+            <p>2022.09.11마감</p>
+            <img src="images/facebook.png" alt="#">
+            <img src="images/github.png" alt="#">
+            <img src="images/instagram.png" alt="#">
+            <img src="images/youtube.png" alt="#">
+        </div>
+    </footer>
+    
+    <script src="js/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var imgSrcs = ["mouse.jpg", "cow.jpg", "tiger.jpg", "rabbit.jpg", "dragon.jpg", "snake.jpg", "horse.jpg",
+                           "sheep.jpg", "monkey.jpg", "hen.jpg", "dog.jpg", "pig.jpg"];
+
+            var imgAlts = ["첫 번째 십이지신 쥐", "두 번째 십이지신 소", "세 번째 십이지신 호랑이", "네 번째 십이지신 토끼", "다섯 번째 십이지신 용",
+                           "여섯 번째 십이지신 뱀", "일곱 번째 십이지신 말", "여덟 번째 십이지신 양", "아홉 번째 십이지신 원숭이", "열 번째 십이지신 닭",
+                           "열한 번째 십이지신 개", "열두 번째 십이지신 돼지"];
+
+            var selected = null;
+
+            var luckyDays = [];
+
+            $("#btn-calculate").on("click",function (event) {
+
+                switch ($("#input-birth").val()%12) {
+                    case 0:
+                        $("#my-zodiac").html("당신은 <span>원숭이 띠</span> 입니다")
+                        break;
+                    case 1:
+                        $("#my-zodiac").html("당신은 <span>닭 띠</span> 입니다")
+                        break;
+                    case 2:
+                        $("#my-zodiac").html("당신은 <span>개 띠</span> 입니다")
+                        break;
+                    case 3:
+                        $("#my-zodiac").html("당신은 <span>돼지 띠</span> 입니다")
+                        break;
+                    case 4:
+                        $("#my-zodiac").html("당신은 <span>쥐 띠</span> 입니다")
+                        break;
+                    case 5:
+                        $("#my-zodiac").html("당신은 <span>소 띠</span> 입니다")
+                        break;
+                    case 6:
+                        $("#my-zodiac").html("당신은 <span>호랑이 띠</span> 입니다")
+                        break;
+                    case 7:
+                        $("#my-zodiac").html("당신은 <span>토끼 띠</span> 입니다")
+                        break;
+                    case 8:
+                        $("#my-zodiac").html("당신은 <span>용 띠</span> 입니다")
+                        break;
+                    case 9:
+                        $("#my-zodiac").html("당신은 <span>뱀 띠</span> 입니다")
+                        break;
+                    case 10:
+                        $("#my-zodiac").html("당신은 <span>말 띠</span> 입니다")
+                        break;
+                    case 11:
+                        $("#my-zodiac").html("당신은 <span>양 띠</span> 입니다")
+                        break;
+                }
+
+                $("#my-zodiac").append("&nbsp;&nbsp;&nbsp;<button id ='my-luckyday'>나의 십이지신 선택하기</button>");
+                myLuckyDay();
+            })
+            
+            $("#table-zodiac img").each(function (idx, img) {
+                $(img).attr("src",`images/${imgSrcs[idx]}`);
+                $(img).attr("alt",imgAlts[idx]);
+                $(img).attr("class",idx+1);
+            })
+
+            $("#table-zodiac img").on("click",function (event) {
+                $("#table-zodiac img").css({
+                                "border" : "3px solid white"    
+                              });
+
+                $(this).css({
+                            "border" : "3px solid #694E4E"
+                        });
+                selected = $(this);
+            })
+
+            $("#btn-prev").on("click",function (event) {
+                if (selected == null) {
+                    alert('십이지신을 선택하세요!')
+                    return;
+                } else if (selected.attr("class") == 1) {
+                    alert('첫번째 십이지신 입니다!')
+                    return;
+                } else {
+                    selected = $(`.${parseInt(selected.attr("class")) - 1}`) 
+                    $("#table-zodiac img").css({
+                                "border" : "3px solid white"    
+                                          });
+
+                    selected.css({
+                                "border" : "3px solid #694E4E"
+                              });
+                }
+            })
+
+            $("#btn-next").on("click",function (event) {
+                if (selected == null) {
+                    alert('십이지신을 선택하세요!')
+                    return;
+                } else if (selected.attr("class") == 12) {
+                    alert('마지막 십이지신 입니다!')
+                    return;
+                } else {
+                    selected = $(`.${parseInt(selected.attr("class")) + 1}`)
+                    $("#table-zodiac img").css({
+                                "border" : "3px solid white"    
+                                          });
+
+                    selected.css({
+                                "border" : "3px solid #694E4E"
+                              });
+                }
+            })
+
+            function makeLuckyDays() {
+
+                for(var i = 0; i < 100; i++) {
+                    luckyDays.push(`오늘의 운세 ${i}`);
+                }
+            }
+            
+            function makeRandomNum() {
+                return Math.floor(Math.random()*luckyDays.length);
+            }
+
+            function formatDate(date) {
+    
+                var d = new Date(date),
+                
+                month = '' + (d.getMonth() + 1) , 
+                day = '' + d.getDate(), 
+                year = d.getFullYear();
+                
+                if (month.length < 2) month = '0' + month; 
+                if (day.length < 2) day = '0' + day; 
+                
+                return [year, month, day].join('-');
+                
+            }
+
+            $("#btn-lucky").on("click",function (event) {
+                if (selected == null) {
+                    alert('십이지신을 선택하세요!')
+                    return;
+                } else {
+                    makeLuckyDays();
+                    var num = makeRandomNum();
+                    $(".box3").html(`<h2 style = "color : #694E4E;">${selected.attr("alt")}</h2>
+                                     <img id = "lucky-img" src = ${selected.attr("src")}> <br>
+                                     <h2>${formatDate(Date())}</h2>
+                                     <h3>${luckyDays[num]}</h3>
+                                     <button id ="btn-reset">다시 선택하기</button>`);
+                
+                    $(".box2").toggle();
+                    $(".box3").toggle();
+
+                    $("#btn-reset").on("click",function (event) {
+                        selected.css("border","3px solid white");
+                        selected = null;
+                        $(".box3").toggle();
+                        $(".box2").toggle();
+
+                    })
+                    
+                }
+
+            })
+
+            function myLuckyDay() {
+                $("#my-luckyday").on("click", function (event) {
+
+                    if ($("#input-birth").val()%12 == 4) {
+                        selected = $(".1");
+                    } else if ($("#input-birth").val()%12 == 5) {
+                        selected = $(".2");
+                    } else if ($("#input-birth").val()%12 == 6) {
+                        selected = $(".3");
+                    } else if ($("#input-birth").val()%12 == 7) {
+                        selected = $(".4");
+                    } else if ($("#input-birth").val()%12 == 8) {
+                        selected = $(".5");
+                    } else if ($("#input-birth").val()%12 == 9) {
+                        selected = $(".6");
+                    } else if ($("#input-birth").val()%12 == 10) {
+                        selected = $(".7");
+                    } else if ($("#input-birth").val()%12 == 11) {
+                        selected = $(".8");
+                    } else if ($("#input-birth").val()%12 == 0) {
+                        selected = $(".9");
+                    } else if ($("#input-birth").val()%12 == 1) {
+                        selected = $(".10");
+                    } else if ($("#input-birth").val()%12 == 2) {
+                        selected = $(".11");
+                    } else {
+                        selected = $(".12");
+                    }
+                    
+                    $("#table-zodiac img").css("border", "3px solid white");
+                    selected.css("border", "3px solid #694E4E");
+                })
+            }
+
+        })
+    </script>
+</body>
+</html>

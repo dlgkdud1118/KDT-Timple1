@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>메인페이지</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    #banner{
+      background-image: url("images/slider_1.jpg");
+    }
+  </style>
+</head>
+
+<body>
+<div class="nav">
+  <div class="logo">
+    <img id="l_img" src="images/zoo.png" alt="#">
+  </div>
+  <div class="nav_btn">
+    <a href="a.index.html">HOME</a>
+    <a href="b.gallery.html">GALLERY</a>
+    <a href="c.matching.html">MATCHING</a>
+    <a href="d.game.html">GAME</a>
+    <a href="e.fortune.html">FORTUNE</a>
+    <a href="f.board.html">BOARD</a>
+  </div>
+</div>
+<!--section 1 banner-->
+<section id="banner">
+  <div id="banner_title">
+    <img id="banner_img" src="images/play-button.png" alt="#">
+    <div id="banner_text">
+      <h1 id="banner_h1"> 1조 동물원 메인페이지 입니다</h1>
+      <p id="banner_p">사심 가득한 반려견묘 자랑 페이지</p>
+      <a class="banner_btn" href="#introduce1">CLICK</a>
+      <a name=""></a>
+    </div>
+  </div>
+</section>
+<!--end banner-->
+
+
+<!--section 2 introduce-->
+<section id="introduce1">
+  <div id="introduce_section1">
+    <div id="introduce_img1">
+      <img src="images/duck10.jpeg" alt="#">
+    </div>
+    <div id="introduce_text1">
+      <h1 id="introduce_h1">다양한 기능</h1>
+      <p id="introduce_p">렌덤으로 어울리는 동물찾기, 띠 찾기<br>카드 뒤집기 같은 다양한 기능</p>
+
+    </div>
+  </div>
+</section>
+<section>
+  <div id="introduce_section2">
+    <div id="introduce_text2">
+      <h1 id="introduce_h1_2">갤러리와 게시판까지!</h1>
+      <p id="introduce_p_2">갤러리에 동물 자랑하기<br>게시판에 의견 남기기</p>
+      <a class="introduce_btn2"href="#slider_wrap">click</a>
+    </div>
+    <div id="introduce_img2">
+      <img src="images/duck9.jpeg" alt="#">
+    </div>
+  </div>
+</section>
+<!--end introduce-->
+
+
+<!--section 3 video-->
+<section id ="wrap2">
+
+  <div class="video">
+    <div class="video_information">
+      <h2 class="video_title">패딩입은 오구리</h2>
+      <h3 class="video_click">영상을 보시려면 클릭하세요</h3>
+    </div>
+    <video class="video_item">
+      <source src="videos/video1.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="video">
+    <div class="video_information">
+      <h2 class="video_title">호랑이 수영하는 영상</h2>
+      <h3 class="video_click">영상을 보시려면 클릭하세요</h3>
+    </div>
+    <video class="video_item">
+      <source src="videos/video2.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="video">
+    <div class="video_information">
+      <h2 class="video_title">왕리본 오구리</h2>
+      <h3 class="video_click">
+        영상을 보시려면 클릭하세요</h3>
+    </div>
+    <video class="video_item">
+      <source src="videos/video3.mp4" type="video/mp4" />
+    </video>
+  </div>
+</section>
+<!--end video-->
+
+<!--section 4 slider -->
+<div id="slider_wrap">
+  <!-- 배경 슬라이드 -->
+  <div style="overflow: hidden; margin: 0;">
+    <div class="container">
+      <div class="inner">
+        <img src="images/slider_01.jpg" alt="#">
+      </div>
+      <div class="inner">
+        <img src="images/slider_02.jpg" alt="#">
+      </div>
+      <div class="inner">
+        <img src="images/slider_03.png" alt="#">
+      </div>
+    </div>
+  </div>
+</div>
+<div id="slider_btn">
+  <button class="btn1">1</button>
+  <button class="btn2">2</button>
+  <button class="btn3">3</button>
+</div>
+<!--end slider-->
+
+
+<!--footer-->
+<footer>
+  <div class="footer_img">
+    <img src="images/zoo.png" alt="#">
+  </div>
+  <div class="footer_text">
+    <span>강수림 &nbsp;</span><span>|</span>
+    <span>김찬연&nbsp;</span><span>|</span>
+    <span>이하영&nbsp;</span><span>|</span>
+    <span>한지해&nbsp;</span><span>|</span>
+    <span>한도희&nbsp;</span><span>|</span>
+    <p>1조 과제입니다</p>
+    <p>2022.09.11마감</p>
+    <img src="images/facebook.png" alt="#">
+    <img src="images/github.png" alt="#">
+    <img src="images/instagram.png" alt="#">
+    <img src="images/youtube.png" alt="#">
+  </div>
+</footer>
+
+<script src="js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+
+  // document.querySelector('.btn2').addEventListener('click',function(){
+  //     document.querySelector('.container').style.transform = 'translate(-100vw)';
+  // });
+  //
+  // document.querySelector('.btn3').addEventListener('click',function(){
+  //     document.querySelector('.container').style.transform = 'translate(-200vw)';
+  // });
+  //
+  // document.querySelector('.btn1').addEventListener('click',function(){
+  //     document.querySelector('.container').style.transform = 'translate(-0vw)';
+  // });
+
+
+
+  const video = Array.from(document.querySelectorAll('.video'));
+  video.forEach((item) => {
+    const videoItem = item.querySelector('video');
+
+    item.addEventListener('click', () => {
+      item.classList.add('active');
+      !videoItem.play() ? videoItem.play() : '';
+    });
+    item.addEventListener('mouseleave', () => {
+      item.classList.remove('active');
+      videoItem.play() ? videoItem.pause() : '';
+    });
+  });
+
+
+  // 1. for 문으로 변경
+  // loop를 돌면서 btn class 이름을 변경하고, event listner를 등록
+  // btn 번호에 따라 translate 값이 -0, -100, -200 임으로 (loop-1) * 100을 하고 -를 붙임 -0은 0과 같아서 -100을 곱해도 되지만 기존과 동일하게 작성하기 위함
+  for (let loop = 1; loop <= 3; loop++) {
+    const btn = `.btn${loop}`;
+    document.querySelector(btn).addEventListener('click',function(){
+      const translate = (loop - 1) * 100;
+      document.querySelector('.container').style.transform = `translate(-${translate}vw)`;
+    });
+  }
+
+  // 2. jquery로 변경
+  // document.querySelector => $로 변경이 가능
+  // click event listner는 .click
+  // style 추가 method는 .css
+  for (let loop = 1; loop <= 3; loop++) {
+    const btn = `.btn${loop}`;
+    $(btn).click(function() {
+      const translate = (loop - 1) * 100;
+      $(".container").css("transform", `translate(-${translate})`);
+    });
+  }
+
+</script>
+
+</body>
+</html>
